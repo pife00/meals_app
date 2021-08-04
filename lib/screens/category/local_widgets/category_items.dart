@@ -14,7 +14,6 @@ class CategoryItems extends StatelessWidget {
       arguments: {
         'id':id,
         'title':title,
-
         }
      );
   }
