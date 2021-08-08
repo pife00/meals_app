@@ -13,62 +13,66 @@ class MealsDetailsScreen extends StatelessWidget {
         DUMMY_MEALS.firstWhere((element) => element.id == mealId);
     print(mealSelect);
     return Scaffold(
-      appBar: AppBar(
-        title: Text("${mealSelect.title}"),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            Container(
-              height: 300,
-              width: double.infinity,
-              child: Image.network(
-                mealSelect.imageUrl,
-                fit: BoxFit.cover,
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.all(20),
-              child: Text(
-                'Ingredients',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              ),
-            ),
-            Container(
-              height: 200,
-              width: 300,
-              child: ListView.builder(
-                  itemCount: mealSelect.ingredients.length,
-                  itemBuilder: (context, index) => Card(
-                        color: Theme.of(context).canvasColor,
-                        child: Text(
-                          mealSelect.ingredients[index],
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold),
-                        ),
-                      )),
-            ),
-            Padding(
-              padding: EdgeInsets.all(20),
-              child: Text(
-                'Steps',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-              ),
-            ),
-            Container(
-              height: 200,
-              width: 300,
-              child: ListView.builder(
-                itemCount: mealSelect.steps.length,
-                itemBuilder: (context, index) => ListTile(
-                  leading: CircleAvatar(child: Text('#$index')),
-                  title: Text(mealSelect.steps[index]),
+        appBar: AppBar(
+          title: Text("${mealSelect.title}"),
+        ),
+        body: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              Container(
+                height: 300,
+                width: double.infinity,
+                child: Image.network(
+                  mealSelect.imageUrl,
+                  fit: BoxFit.cover,
                 ),
               ),
-            )
-          ],
+              Container(
+                margin: EdgeInsets.all(20),
+                child: Text(
+                  'Ingredients',
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                ),
+              ),
+              Container(
+                height: 200,
+                width: 300,
+                child: ListView.builder(
+                    itemCount: mealSelect.ingredients.length,
+                    itemBuilder: (context, index) => Card(
+                          color: Theme.of(context).canvasColor,
+                          child: Text(
+                            mealSelect.ingredients[index],
+                            style: TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.bold),
+                          ),
+                        )),
+              ),
+              Padding(
+                padding: EdgeInsets.all(20),
+                child: Text(
+                  'Steps',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                ),
+              ),
+              Container(
+                height: 200,
+                width: 300,
+                child: ListView.builder(
+                  itemCount: mealSelect.steps.length,
+                  itemBuilder: (context, index) => ListTile(
+                    leading: CircleAvatar(child: Text('#$index')),
+                    title: Text(mealSelect.steps[index]),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
-      ),
-    );
+        floatingActionButton: FloatingActionButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: Icon(Icons.delete)));
   }
 }
