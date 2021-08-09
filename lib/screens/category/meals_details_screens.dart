@@ -5,8 +5,9 @@ class MealsDetailsScreen extends StatelessWidget {
   static String routeName = '/meals-details';
 
   var _toogleFavorites;
+  var _isFavorite;
 
-  MealsDetailsScreen(this._toogleFavorites);
+  MealsDetailsScreen(this._toogleFavorites,this._isFavorite);
 
   @override
   Widget build(BuildContext context) {
@@ -72,6 +73,9 @@ class MealsDetailsScreen extends StatelessWidget {
           ),
         ),
         floatingActionButton: FloatingActionButton(
-            onPressed: _toogleFavorites, child: Icon(Icons.favorite)));
+            onPressed:()=> _toogleFavorites(mealId), child: 
+            Icon(_isFavorite(mealId) ? Icons.favorite: Icons.star_border
+            
+            )));
   }
 }
