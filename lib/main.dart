@@ -4,7 +4,7 @@ import 'package:meals/dummy_data.dart';
 import 'package:meals/screens/category/category_meals.dart';
 import 'package:meals/screens/category/meals_details_screens.dart';
 import 'package:meals/screens/filter.screens.dart';
-import 'package:meals/screens/tabs_scree.dart';
+import 'package:meals/screens/tabs_screen.dart';
 import './models/meals.dart';
 
 void main() {
@@ -19,7 +19,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
   Map<String, bool> _filters = {
     'gluten': false,
     'lactose': false,
@@ -29,28 +28,41 @@ class _MyAppState extends State<MyApp> {
 
   List<Meal> _avaibleMeals = DUMMY_MEALS;
 
- void _setFilters(Map<String, bool> filtersData) {
-  /* setState(() {
-     _filters = filtersData;
-     _avaibleMeals = DUMMY_MEALS.where((meal){
+  void _setFilters(Map<String, bool> filtersData) {
+    setState(() {
+      _filters = filtersData;
+      _avaibleMeals = DUMMY_MEALS.where((meal) {
+        if (_filters['gluten'] == true && !meal.isGlutenFree) {
+          return false;
+        }
 
-       if( _filters['gluten'] == true && !meal.isGlutenFree){
-         return false;
-       }
-     }).toList();
-   });*/
- }
+        if (_filters['lactose'] == true && !meal.isLactoseFree) {
+          return false;
+        }
+
+        if (_filters['vegan'] == true && !meal.isVegan) {
+          return false;
+        }
+
+        if (_filters['vegetarian'] == true && !meal.isVegetarian) {
+          return false;
+        }
+        return true;
+      }).toList();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-   
     return MaterialApp(
         title: "Meals",
         routes: {
           '/': (context) => TabScreen(),
-          CategoryMealsScreen.routeName: (contex) => CategoryMealsScreen(_avaibleMeals),
+          CategoryMealsScreen.routeName: (contex) =>
+              CategoryMealsScreen(_avaibleMeals),
           MealsDetailsScreen.routeName: (context) => MealsDetailsScreen(),
-          FilterScreen.routeName: (context) => FilterScreen(_setFilters),
+          FilterScreen.routeName: (context) =>
+              FilterScreen(_filters, _setFilters),
         },
         theme: ThemeData(
             primarySwatch: Colors.pink,
